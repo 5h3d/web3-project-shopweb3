@@ -9,6 +9,7 @@ import Footer from "./common/footer/Footer"
 import Sdata from "./components/shops/Sdata"
 import { MoralisProvider } from "react-moralis"
 import { NotificationProvider } from "@web3uikit/core"
+import Order from "./components/order/Order"
 
 
 
@@ -54,6 +55,9 @@ function App() {
             </Route>
             <Route path='/cart' exact>
               <Cart CartItem={CartItem} addToCart={addToCart} decreaseQty={decreaseQty} />
+            </Route>
+            <Route path='/track' exact>
+              <Order />
             </Route>
           </Switch>
           <Footer />

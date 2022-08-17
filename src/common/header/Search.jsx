@@ -43,10 +43,10 @@ const Search = ({ CartItem }) => {
             <input type='text' placeholder='Search and hit enter...' />
             <span>All Category</span>
           </div>
-
+          <ConnectWallet />
           <div className='icon f_flex width'>
             {/* <button onClick={handleNewNotification}>connect</button> */}
-            <ConnectWallet />
+            
           {/* <ConnectButton  moralisAuth= {false}/> */}
             <i className='fa fa-user icon-circle'></i>
             <div className='cart'>

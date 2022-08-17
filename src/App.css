@@ -10,6 +10,7 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   background-color: #ffffff;
+  overflow-x: hidden;
 }
 .background {
   background: #f6f9fc;
@@ -70,8 +71,11 @@ button {
 }
 
 /*---------category----------*/
-.contentWidth {
+/* .contentWidth {
   width: 77%;
+} */
+.contentWidth {
+  width: 100%;
 }
 .category {
   box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
@@ -246,4 +250,32 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+}
+
+.flex-col{
+  flex-direction: column;
+  gap: 10px;
+}
+
+.annocument .img{
+  width: 100%;
+  height: 240px;
+
+}
+
+/* shed */
+.grid-s{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap:10px;
+}
+.grid-sh{
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  gap:10px;
+}
+
+
+.d-none{
+  display: none;
 }

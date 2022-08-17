@@ -1,4 +1,4 @@
-
+/*------head-----------*/
 .head {
   background-color: #2b2c2e;
   padding: 10px 0;
@@ -11,7 +11,8 @@
   margin-right: 30px;
   font-size: 13px;
 }
-
+/*------head-----------*/
+/*------search-----------*/
 .search {
   padding: 20px 0;
 }
@@ -67,7 +68,7 @@
 .search .f_flex {
   justify-content: end;
 }
-
+/*------search-----------*/
 .catgrories {
   background-color: #f6f9fc;
   padding: 0px 30px;
@@ -124,7 +125,7 @@ header ul li a:hover {
   header ul {
     padding-top: 30px;
   }
-  .nav-links-mobile {
+  .nav-links-MobileMenu {
     position: absolute;
     display: block;
     list-style: none;
@@ -170,5 +171,11 @@ header ul li a:hover {
   }
   .header.active {
     height: 10vh;
+  }
+  .search-box {
+      display: none;
+  }
+  .fa-user{
+    display: none;
   }
 }

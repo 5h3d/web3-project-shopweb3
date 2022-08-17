@@ -2,17 +2,53 @@ export const abi = [
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_customerAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_customerId",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelOrder",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_customerAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_customerId",
+				"type": "uint256"
+			}
+		],
+		"name": "confirmOrder",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256[]",
 				"name": "_productId",
 				"type": "uint256[]"
 			},
 			{
-				"internalType": "uint256[]",
+				"internalType": "string[]",
 				"name": "_itemName",
-				"type": "uint256[]"
+				"type": "string[]"
 			}
 		],
-		"name": "payment",
+		"name": "makePayment",
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
@@ -23,14 +59,18 @@ export const abi = [
 		"type": "constructor"
 	},
 	{
+		"inputs": [],
+		"name": "notOwner",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "transferFailed",
+		"type": "error"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256[]",
-				"name": "productId",
-				"type": "uint256[]"
-			},
 			{
 				"indexed": false,
 				"internalType": "address",
@@ -46,14 +86,69 @@ export const abi = [
 			{
 				"indexed": false,
 				"internalType": "uint256[]",
-				"name": "itemName",
+				"name": "productId",
 				"type": "uint256[]"
+			},
+			{
+				"indexed": false,
+				"internalType": "string[]",
+				"name": "productName",
+				"type": "string[]"
 			},
 			{
 				"indexed": false,
 				"internalType": "uint256",
 				"name": "price",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum Shopweb3.OrderState",
+				"name": "orderState",
+				"type": "uint8"
+			}
+		],
+		"name": "StatusChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256[]",
+				"name": "productId",
+				"type": "uint256[]"
+			},
+			{
+				"indexed": false,
+				"internalType": "string[]",
+				"name": "productName",
+				"type": "string[]"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "enum Shopweb3.OrderState",
+				"name": "orderState",
+				"type": "uint8"
 			}
 		],
 		"name": "TransactionEvent",
@@ -72,15 +167,10 @@ export const abi = [
 	},
 	{
 		"inputs": [],
-		"name": "getStruct",
+		"name": "customerTransactions",
 		"outputs": [
 			{
 				"components": [
-					{
-						"internalType": "uint256[]",
-						"name": "productId",
-						"type": "uint256[]"
-					},
 					{
 						"internalType": "address",
 						"name": "from",
@@ -88,21 +178,89 @@ export const abi = [
 					},
 					{
 						"internalType": "uint256",
-						"name": "timestamp",
+						"name": "time",
 						"type": "uint256"
 					},
 					{
 						"internalType": "uint256[]",
-						"name": "itemName",
+						"name": "productId",
 						"type": "uint256[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "productName",
+						"type": "string[]"
 					},
 					{
 						"internalType": "uint256",
 						"name": "price",
 						"type": "uint256"
+					},
+					{
+						"internalType": "enum Shopweb3.OrderState",
+						"name": "orderState",
+						"type": "uint8"
 					}
 				],
-				"internalType": "struct Ecommerce.TransactionStruct[]",
+				"internalType": "struct Shopweb3.CustomerInfo[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllCustomers",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getAllOrders",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "time",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "productId",
+						"type": "uint256[]"
+					},
+					{
+						"internalType": "string[]",
+						"name": "productName",
+						"type": "string[]"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum Shopweb3.OrderState",
+						"name": "orderState",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct Shopweb3.CustomerInfo[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -113,27 +271,49 @@ export const abi = [
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "customerAddress",
+				"type": "address"
+			}
+		],
+		"name": "getCustomerCount",
+		"outputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "transactionArray",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getLatestPrice",
 		"outputs": [
 			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
-				"name": "from",
+				"name": "_customerAddress",
 				"type": "address"
-			},
+			}
+		],
+		"name": "isACustomer",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "timestamp",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "price",
-				"type": "uint256"
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -141,4 +321,4 @@ export const abi = [
 	}
 ]
 
-export const CONTRACT_ADDRESS = "0xfE0e5bB7AA8136DdA86bf2e0FE0946974b580Da6"
+export const CONTRACT_ADDRESS = "0x428722b69528cD68700B33994690d2bf929209e1"
