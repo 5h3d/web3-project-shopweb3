@@ -97,7 +97,7 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
       const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
 
 
-
+console.log(contract)
 
 
       console.log(CartItem)
@@ -150,6 +150,8 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
     // console.log("hexlify", ethers.utils.hexlify(productName))
     console.log( productId)
     console.log(productName)
+    console.log(totalPrice)
+
 
 
     // console.log("hexlify", ethers.utils.hexlify(productName))
@@ -160,14 +162,18 @@ const Cart = ({ CartItem, addToCart, decreaseQty }) => {
     // console.log(parsedName)
 
     const price = await contract.getLatestPrice() 
-    console.log(price)
-    // const parsedPrice = totalPrice / price * 1e18
+    console.log(ethers.utils.formatEther(price._hex)
+    )
+    console.log(ethers.utils.formatEther(price._hex) * 1e18 )
+    const parsedPrice = (totalPrice / ethers.utils.formatEther(price._hex) ) / 1e10
 
-    // const txn = await contract.makePayment(productId, productName, totalPrice,{value: totalPrice })
-    // handleNewNotification("info", "pending")
+    console.log(totalPrice / ethers.utils.formatEther(price._hex))
+    
+    const txn = await contract.makePayment(productId, productName, totalPrice, {value: ethers.utils.parseEther(`${parsedPrice}`) })
+    handleNewNotification("info", "pending")
 
-    // txn.wait()
-    // handleNewNotification("info", "compeleted")
+    txn.wait()
+    handleNewNotification("info", "compeleted")
 
 
     } catch (error) {

@@ -21,7 +21,7 @@ const Order = () => {
             const signer = provider.getSigner()
             const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
             console.log("contract ", await contract)
-            console.log("transaction ", await contract.customerTransactions())
+            // console.log("transaction ", await contract.customerTransactions())
             const customerTransactions =  await contract.customerTransactions()
             // console.log(customerTransactions.productsId)
 
@@ -33,19 +33,19 @@ const Order = () => {
             //     })
             // })
 
-            // setTransaction(customerTransactions)
+            setTransaction(customerTransactions)
 
 
 
-            console.log(customerTransactions)
+            // console.log(customerTransactions)
 
             
 
-            setTransaction(customerTransactions)
+            // setTransaction(customerTransactions)
 
-            transaction.map((trans)=>{
-                console.log(trans.productName)
-            })
+            // customerTransactions.map((trans)=>{
+            //     console.log(trans.productName)
+            // })
 
             
         } catch (error) {
@@ -59,40 +59,54 @@ const Order = () => {
     <div className='order__page'>
 
         <div className="order__data">
-            <table id="customers">
-            <tr>
-                <th>Id</th>
-                <th>Time</th>
-                <th>Product Name</th>
-                <th>Price</th>
-            </tr>
-            {
-                transaction.length > 0 && transaction.map((trans)=>(
-               
-            <tr>
-                <td>1 </td>
-                <td>{trans.time._hex.toString()}</td>
-                <td>{trans.productsName.map((tr)=>(
-                    <span>{tr}</span>
-                ))}
+        {
+            transaction ? (
+                <table id="customers">
+                <tr>
+                    <th>Id</th>
+                    <th>Time</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                </tr>
+                {
+                    transaction.map((trans)=>(
+                        // console.log(parseInt(trans.time._hex))
+                //         <tr>
+                //     <td>2 </td>
+                //     <td>{parseInt(trans.time._hex)}</td>
                     
-                </td>
-                <td>{ethers.utils.formatEther(trans.Price._hex)}</td>
-             </tr>
-                ))
-            }
-          
-            <tr>
-                <td>2 </td>
-                <td>March 11, 2022</td>
-                <td>Germany Berglunds snabbköp</td>
-                <td>250$</td>
-            </tr>
+                //     <td>Germany Berglunds snabbköp</td>
+                //     <td>250$</td>
+                // </tr>
+                <tr>
+                    <td>1 </td>
+                    <td>{parseInt(trans.time._hex)}</td>
+                    {/* <td>{parseInt(trans.productId._hex)}</td> */}
+                    <td>{trans.productName.map((tr)=>(
+                        <span>{tr}</span>
+                    ))}
+                        
+                    </td>
+                    <td>{ethers.utils.formatEther(trans.price._hex) * 1e18}$</td>
+                    <td>{parseInt(trans.orderState)}</td>
+                 </tr>
+                    ))
+                }
+              
+                {/* <tr>
+                    <td>2 </td>
+                    <td>March 11, 2022</td>
+                    <td>Germany Berglunds snabbköp</td>
+                    <td>250$</td>
+                </tr>
+                */}
+               
            
-           
-       
-           
-            </table>
+               
+                </table>
+            ) : <p>No orders</p>
+        }
        </div>
     </div>
   )

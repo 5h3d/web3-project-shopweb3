@@ -46,6 +46,11 @@ export const abi = [
 				"internalType": "string[]",
 				"name": "_itemName",
 				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
 			}
 		],
 		"name": "makePayment",
@@ -321,4 +326,4 @@ export const abi = [
 	}
 ]
 
-export const CONTRACT_ADDRESS = "0x428722b69528cD68700B33994690d2bf929209e1"
+export const CONTRACT_ADDRESS = "0xFECa4Fe576A1aa54b73470DB90D11Ac786470208"
